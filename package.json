@@ -1,0 +1,25 @@
+{
+  "name": "group-projects",
+  "version": "1.0.0",
+  "description": "Capturing the awesomeness that is EDA group projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/locksmithdon/group-projects.git"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "express",
+    "knex"
+  ],
+  "author": "Don Smith <locksmithdon@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/locksmithdon/group-projects/issues"
+  },
+  "homepage": "https://github.com/locksmithdon/group-projects#readme"
+}
