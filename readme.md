@@ -15,7 +15,7 @@ Initially this app serves a singular purpose: to help flesh out the phase 2 curr
 * Team HAS MANY Students
 * Team HAS ONE Project
 * Student HAS MANY Teams
-* Project HAS MANY Photos 
+* Project HAS MANY Photos
 
 * Cohort
   - name: varchar(64)
