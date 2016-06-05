@@ -14,6 +14,7 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('projects', function (table) {
       table.increments('id').primary()
+      table.integer('cohortId').references('cohorts.id')
       table.string('name')
       table.string('description')
       table.integer('week')

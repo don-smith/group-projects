@@ -13,53 +13,64 @@ exports.seed = function (knex, Promise) {
     .then(addTeams)
 
   function addCohort () {
-    return knex('cohorts').insert({name: 'Kauri 2016', graduation: new Date('2016-07-15')})
+    return knex('cohorts')
+      .insert({
+        name: 'Kauri 2016',
+        graduation: new Date('2016-07-15')
+      })
   }
 
-  function addStudents (cohortId) {
-    var id = cohortId[0]
-    return knex('students').insert([
-      {
-        firstName: 'Joe',
-        lastName: 'Blow',
-        photoUrl: 'http://images/joe.jpg',
-        cohortId: id
-      }, {
-        firstName: 'Sally',
-        lastName: 'Sue',
-        photoUrl: 'http://images/sally.jpg',
-        cohortId: id
-      }, {
-        firstName: 'Charlie',
-        lastName: 'Chuckles',
-        photoUrl: 'http://images/charlie.jpg',
-        cohortId: id
-      }, {
-        firstName: 'Harriet',
-        lastName: 'Happiness',
-        photoUrl: 'http://images/harriet.jpg',
-        cohortId: id
-      }
-    ])
+  function addStudents (lastCohortIds) {
+    var lastCohortId = lastCohortIds[0]
+    return knex('students')
+      .insert([
+        {
+          firstName: 'Joe',
+          lastName: 'Blow',
+          photoUrl: 'http://images/joe.jpg',
+          cohortId: lastCohortId
+        }, {
+          firstName: 'Sally',
+          lastName: 'Sue',
+          photoUrl: 'http://images/sally.jpg',
+          cohortId: lastCohortId
+        }, {
+          firstName: 'Charlie',
+          lastName: 'Chuckles',
+          photoUrl: 'http://images/charlie.jpg',
+          cohortId: lastCohortId
+        }, {
+          firstName: 'Harriet',
+          lastName: 'Happiness',
+          photoUrl: 'http://images/harriet.jpg',
+          cohortId: lastCohortId
+        }
+      ])
+      .then(function (lastStudentIds) {
+        return {
+          lastCohortId: lastCohortId,
+          lastStudentId: lastStudentIds[0]
+        }
+      })
   }
 
-  function addProjects (lastStudentId) {
+  function addProjects (ids) {
     return knex('projects').insert([
       {
         week: 4,
         name: 'Project awesomeness',
         description: 'The most awesome project',
+        cohortId: ids.lastCohortId
       }, {
         week: 4,
         name: 'Project excellentness',
         description: 'The most excellent project',
+        cohortId: ids.lastCohortId
       }
     ])
-      .then(function (lastProjectId) {
-        return {
-          lastStudentId: lastStudentId[0],
-          lastProjectId: lastProjectId[0]
-        }
+      .then(function (lastProjectIds) {
+        ids.lastProjectId = lastProjectIds[0]
+        return ids
       })
   }
 

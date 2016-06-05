@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
   var cohort = req.body
   db.saveCohort(cohort)
     .then(function () {
-      res.sendStatus(200)
+      return res.sendStatus(200)
     })
     .catch(handleError.bind(null, res))
 })
@@ -25,7 +25,7 @@ router.get('/:id', function (req, res) {
   var cohortId = req.params.id
   db.getCohort(cohortId)
     .then(function (cohort) {
-      res.json(cohort)
+      return res.json(cohort)
     })
     .catch(handleError.bind(null, res))
 })
@@ -35,33 +35,47 @@ router.put('/:id', function (req, res) {
   var cohort = req.body
   db.updateCohort(cohort, cohortId)
     .then(function () {
-      res.sendStatus(200)
+      return res.sendStatus(200)
     })
     .catch(handleError.bind(null, res))
 })
 
 router.get('/:id/students', function (req, res) {
   var cohortId = req.params.id
-  var students = [] // db.getCohortStudents(cohortId)
-  res.json(students)
+  db.getCohortStudents(cohortId)
+    .then(function (students) {
+      return res.json(students)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.post('/:id/students', function (req, res) {
-  var cohortId = req.param.id
   var student = req.body
-// db.saveCohortStudent(student, cohortId)
+  student.cohortId = req.params.id
+  db.saveCohortStudent(student)
+    .then(function () {
+      return res.sendStatus(200)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.get('/:id/projects', function (req, res) {
   var cohortId = req.params.id
-  var projects = [] // db.getCohortProjects(cohortId)
-  res.json(projects)
+  db.getCohortProjects(cohortId)
+    .then(function (projects) {
+      return res.json(projects)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.post('/:id/projects', function (req, res) {
-  var cohortId = req.params.id
   var project = req.body
-// db.saveCohortProject(project, cohortId)
+  project.cohortId = req.params.id
+  db.saveCohortProject(project)
+    .then(function () {
+      return res.sendStatus(200)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 module.exports = router
