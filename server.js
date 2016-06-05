@@ -18,7 +18,7 @@ app.use('/students', students)
 app.use('/projects', projects)
 
 app.listen(PORT, function () {
-  console.log('Listening on port', PORT)
+  console.log('Server listening on port', PORT)
 })
 
 module.exports = app

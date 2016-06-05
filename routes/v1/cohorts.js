@@ -14,18 +14,30 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
   var cohort = req.body
-// db.saveCohort(cohort)
+  db.saveCohort(cohort)
+    .then(function () {
+      res.sendStatus(200)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.get('/:id', function (req, res) {
   var cohortId = req.params.id
-  var cohort = {} // db.getCohort(cohortId)
+  db.getCohort(cohortId)
+    .then(function (cohort) {
+      res.json(cohort)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.put('/:id', function (req, res) {
   var cohortId = req.params.id
   var cohort = req.body
-// db.saveCohort(cohort, cohortId)
+  db.updateCohort(cohort, cohortId)
+    .then(function () {
+      res.sendStatus(200)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.get('/:id/students', function (req, res) {

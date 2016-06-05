@@ -4,7 +4,7 @@
   "description": "Capturing the awesomeness that is EDA group projects",
   "main": "server.js",
   "scripts": {
-    "debug": "node-inspector & node-dev --debug server.js",
+    "debug": "node-inspector & NODE_ENV=dev node-dev --debug server.js",
     "migrate:make": "knex migrate:make",
     "migrate:latest": "NODE_ENV=dev knex migrate:latest",
     "migrate:rollback": "NODE_ENV=dev knex migrate:rollback",
