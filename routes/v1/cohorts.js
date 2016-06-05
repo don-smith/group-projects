@@ -1,9 +1,15 @@
 var express = require('express')
 var router = express.Router()
 
+var db = require('../../db')
+var handleError = require('../../handle-error')
+
 router.get('/', function (req, res) {
-  var cohorts = [] // db.getCohorts()
-  res.json(cohorts)
+  db.getCohorts()
+    .then(function (cohorts) {
+      return res.json(cohorts)
+    })
+    .catch(handleError.bind(null, res))
 })
 
 router.post('/', function (req, res) {

@@ -13,7 +13,7 @@ exports.seed = function (knex, Promise) {
     .then(addTeams)
 
   function addCohort () {
-    return knex('cohorts').insert({name: 'Kauri 2016', graduation: ''})
+    return knex('cohorts').insert({name: 'Kauri 2016', graduation: new Date('2016-07-15')})
   }
 
   function addStudents (cohortId) {
@@ -44,7 +44,6 @@ exports.seed = function (knex, Promise) {
   }
 
   function addProjects (lastStudentId) {
-    console.log('lastStudentId', lastStudentId)
     return knex('projects').insert([
       {
         week: 4,
@@ -57,7 +56,6 @@ exports.seed = function (knex, Promise) {
       }
     ])
       .then(function (lastProjectId) {
-        console.log('lastProjectId', lastProjectId)
         return {
           lastStudentId: lastStudentId[0],
           lastProjectId: lastProjectId[0]

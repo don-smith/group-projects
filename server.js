@@ -2,7 +2,8 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var path = require('path')
 
-var PORT = process.env.PORT
+var PORT = process.env.PORT || 3000
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 
 var cohorts = require('./routes/v1/cohorts')
 var students = require('./routes/v1/students')
@@ -19,3 +20,5 @@ app.use('/projects', projects)
 app.listen(PORT, function () {
   console.log('Listening on port', PORT)
 })
+
+module.exports = app
